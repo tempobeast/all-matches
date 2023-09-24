@@ -1,5 +1,4 @@
 const express = require('express');
-const { generateImage } = require('./controllers/openAiController');
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 3000;
 

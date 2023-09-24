@@ -2,7 +2,7 @@
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 const generateImage = async (req, res) => {
