@@ -51,3 +51,9 @@ img {
   width: 80%;
   margin: 1rem auto;
 }
+
+.match-image{
+  width: 90%;
+  border-radius: 20px;
+  margin-bottom: 1rem;
+}
