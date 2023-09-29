@@ -46,8 +46,8 @@ function MatchPage() {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
-    const hairColor = ["redhead", "blonde", "brunette"];
-    const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party"]
+    const hairColor = ["redhead", "blonde", "brunette", "blonde", "brunette", "brunette", "blonde"];
+    const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party", "on a train", "backpacking"]
 
     const prompt = `Dating app picture, photo realistic, hyper realistic, ${randomNumber(ageLower, ageUpper)} year old, ${hairColor[randomNumber(0, hairColor.length - 1)]}, ${location[randomNumber(0, location.length - 1)]}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling`
     
