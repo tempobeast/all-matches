@@ -8,17 +8,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { PromptDataSubmittedContext } from "./context/promptDataSubmitted";
 
 function App() {
-  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
+  // const { promptDataSubmitted, setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
 
   return (
     <div className='App'>
       <BrowserRouter>
         <Routes>
-          {promptDataSubmitted.lookingFor ? (
             <Route path='/matches' element={<MatchPage />} />
-          ) : (
             <Route path='/' element={<Questionaire />} />
-          )}
           <Route path='/prompt-test' element={<PromptTest />} />
         </Routes>
       </BrowserRouter>

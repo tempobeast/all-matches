@@ -16,6 +16,7 @@ function Questionaire() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     if (promptData.ageLower > promptData.ageUpper) {
       alert("Cannot complete request (Date range error)");
       return;

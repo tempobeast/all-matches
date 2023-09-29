@@ -56,4 +56,9 @@ img {
   width: 90%;
   border-radius: 20px;
   margin-bottom: 1rem;
+  position: relative;
+}
+
+.match-image__overlay{
+  position: relative;
 }
