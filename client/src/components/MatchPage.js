@@ -13,32 +13,32 @@ function MatchPage() {
 
     //Touch Event Test
 
-    // const [ touchStart, setTouchStart ] = useState(null);
-    // const [ touchEnd, setTouchEnd ] = useState(null);
-    // const [ touchDistance, setTouchDistance ] = useState(null);
+    const [ touchStart, setTouchStart ] = useState(null);
+    const [ touchEnd, setTouchEnd ] = useState(null);
+    const [ touchDistance, setTouchDistance ] = useState(null);
 
-    // const minSwipeDistance = 50;
+    const minSwipeDistance = 50;
     
-    // function onTouchStart(e) {
-    //     setTouchEnd(null);
-    //     setTouchStart(e.targetTouches[0].clientX)
-    //     console.log(e)
-    // }
+    function onTouchStart(e) {
+        setTouchEnd(null);
+        setTouchStart(e.targetTouches[0].clientX)
+        console.log(e)
+    }
 
-    // function onTouchMove(e) {
-    //     setTouchEnd(e.targetTouches[0].clientX);
-    // }
+    function onTouchMove(e) {
+        setTouchEnd(e.targetTouches[0].clientX);
+    }
 
-    // function onTouchEnd() {
-    //     if (!touchStart || !touchEnd) return;
-    //     const distance = touchStart - touchEnd;
-    //     setTouchDistance(-distance)
-    //     const isLeftSwipe = distance > minSwipeDistance;
-    //     const isRightSwipe = distance < -minSwipeDistance;
-    //     if (isLeftSwipe || isRightSwipe) {
-    //         console.log('swipe', isLeftSwipe ? "left" : "right")
-    //     }
-    // }
+    function onTouchEnd() {
+        if (!touchStart || !touchEnd) return;
+        const distance = touchStart - touchEnd;
+        setTouchDistance(-distance)
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        if (isLeftSwipe || isRightSwipe) {
+            console.log('swipe', isLeftSwipe ? "left" : "right")
+        }
+    }
 
     function randomNumber (min, max) {
         min = Math.ceil(min);
@@ -86,8 +86,8 @@ function MatchPage() {
         <div>
             <button onClick={() => navigate('/')}>Back</button>
             <h1>Match Page</h1>
-            {profileImageUrl ? <img className="match-image"src={profileImageUrl}/> : null}
-            {/* <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/> */}
+            {/* {profileImageUrl ? <img className="match-image"src={profileImageUrl}/> : null} */}
+            <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/>
             <button onClick={handleSubmit}>View Matches</button>
         </div>
     )
