@@ -5,7 +5,8 @@ import { PromptDataSubmittedContext } from '../context/promptDataSubmitted';
 function MatchPage() {
 
     const [ profileImageUrl, setProfileImageUrl ] = useState('');
-    const [ initialSubmit, setInitialSubmit ] = useState(true);
+    const [ isLoading, setIsLoading ] = useState(false)
+    const [ isMatch, setIsMatch ] = useState(false)
     
     const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
     const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
@@ -35,8 +36,10 @@ function MatchPage() {
         setTouchDistance(-distance)
         const isLeftSwipe = distance > minSwipeDistance;
         const isRightSwipe = distance < -minSwipeDistance;
-        if (isLeftSwipe || isRightSwipe) {
-            console.log('swipe', isLeftSwipe ? "left" : "right")
+        if (isRightSwipe) {
+            setIsMatch(true)
+        } else {
+            generateImageRequest(prompt)
         }
     }
 
@@ -49,7 +52,7 @@ function MatchPage() {
     const hairColor = ["redhead", "blonde", "brunette", "blonde", "brunette", "brunette", "blonde"];
     const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party", "on a train", "backpacking"]
 
-    const prompt = `Dating app picture, photo realistic, hyper realistic, ${randomNumber(ageLower, ageUpper)} year old, ${hairColor[randomNumber(0, hairColor.length - 1)]}, ${location[randomNumber(0, location.length - 1)]}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling`
+    const prompt = `Dating app picture, photo realistic, hyper realistic, ${randomNumber(ageLower, ageUpper)} year old, ${hairColor[randomNumber(0, hairColor.length - 1)]}, ${location[randomNumber(0, location.length - 1)]}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`
     
     function handleSubmit(e) {
       e.preventDefault();
@@ -57,6 +60,8 @@ function MatchPage() {
     }
   
       async function generateImageRequest(imagePrompt) {
+        setIsMatch(false)
+        setIsLoading(true)
   
         try {
           const response = await fetch('/openai/generateimage', {
@@ -80,14 +85,17 @@ function MatchPage() {
         } catch (error) {
           console.log(error)
         }
+        setIsLoading(false)
       }
 
     return(
         <div>
+            {isLoading ? <div className="backdrop"></div> : null}
             <button onClick={() => navigate('/')}>Back</button>
             <h1>Match Page</h1>
-            {/* {profileImageUrl ? <img className="match-image"src={profileImageUrl}/> : null} */}
-            <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/>
+            {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className="match-image"src={profileImageUrl}/> : null}
+            {isMatch ? <h3>It's A Match !!!</h3> : null}
+            {/* <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/> */}
             <button onClick={handleSubmit}>View Matches</button>
         </div>
     )
