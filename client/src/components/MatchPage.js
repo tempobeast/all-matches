@@ -93,10 +93,12 @@ function MatchPage() {
             {isLoading ? <div className="backdrop"></div> : null}
             <button onClick={() => navigate('/')}>Back</button>
             <h1>Match Page</h1>
-            {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className="match-image"src={profileImageUrl}/> : null}
-            {isMatch ? <h3>It's A Match !!!</h3> : null}
-            {/* <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/> */}
-            <button onClick={handleSubmit}>View Matches</button>
+            <div className={isMatch ? "is-match" : ""}>
+                {/* {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className="match-image"src={profileImageUrl}/> : null} */}
+                {isMatch ? <h3 className='is-match-text'>It's A Match !!! </h3> : null}
+                <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/>
+            </div>
+            <button className="view-matches-button" onClick={handleSubmit}>View Matches</button>
         </div>
     )
 }
