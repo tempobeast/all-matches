@@ -2,17 +2,27 @@ import { useState, useContext } from "react";
 import "../App.css";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { useNavigate } from "react-router-dom";
+import MultiRangeSlider from 'multi-range-slider-react';
+
 
 function Questionaire() {
-  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  const [ promptData, setPromptData ] = useState({
+  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(
+    PromptDataSubmittedContext
+  );
+  const [promptData, setPromptData] = useState({
     happyPlace: "",
     ageLower: 18,
     ageUpper: 80,
-    lookingFor: ''
-    })
+    lookingFor: "",
+  });
+    const [minValue, set_minValue] = useState(25);
+    const [maxValue, set_maxValue] = useState(50);
+    const handleAgeInput = (e) => {
+        set_minValue(e.minValue);
+        set_maxValue(e.maxValue);
+};
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -22,8 +32,8 @@ function Questionaire() {
       return;
     }
 
-    setPromptDataSubmitted(promptData)
-    navigate('/matches')
+    setPromptDataSubmitted(promptData);
+    navigate("/matches");
   }
 
   function handleChange(e) {
@@ -41,22 +51,45 @@ function Questionaire() {
       </p>
       <form onSubmit={handleSubmit} className='dating-preference-form'>
         <label htmlFor='looking-for'>Looking for: </label>
-        <select
-          className='looking-for'
-          value={promptData.lookingFor}
-          onChange={handleChange}
-          name='lookingFor'
-          required
-        >
-          <option>select:</option>
-          <option>Woman</option>
-          <option>Man</option>
-          <option>etc</option>
-          <option>All</option>
-        </select>
+        <div className='select'>
+          <select
+            className='looking-for'
+            value={promptData.lookingFor}
+            onChange={handleChange}
+            name='lookingFor'
+            required
+          >
+            <option>select:</option>
+            <option>Women</option>
+            <option>Men</option>
+            <option>Men/Women</option>
+            <option>Non-binary</option>
+            <option>All</option>
+          </select>
+        </div>
         <div className='age-preference'>
           <label>Between</label>
-          <p>{promptData.ageLower}</p>
+          <div className="slider-container">
+            <div className="slider-label-container">
+                <input type="number"value={minValue}/>
+                <p>and</p>
+                <input type="number" value={maxValue}/>
+            </div>
+            <MultiRangeSlider 
+                className='multi-range-slider' 
+                min={18} 
+                max={80} 
+                step={1}
+                minValue={minValue} 
+                maxValue={maxValue} 
+                onInput={(e) => handleAgeInput(e)}
+                style={{border: 'none', boxShadow: 'none', padding: '0'}}
+                label={false}
+                ruler={false}
+                barInnerColor="blue"
+                />
+        </div>
+          {/* <p>{promptData.ageLower}</p>
           <input
             type='range'
             min={18}
@@ -76,7 +109,7 @@ function Questionaire() {
             value={promptData.ageUpper}
             onChange={handleChange}
             className='slider'
-          />
+          /> */}
         </div>
         <label htmlFor='happy-place'>My happy place is...</label>
         <input
