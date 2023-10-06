@@ -6,22 +6,20 @@ import MultiRangeSlider from 'multi-range-slider-react';
 
 
 function Questionaire() {
-  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(
+  const { setPromptDataSubmitted } = useContext(
     PromptDataSubmittedContext
   );
   const [promptData, setPromptData] = useState({
     happyPlace: "",
-    ageLower: 18,
-    ageUpper: 80,
     lookingFor: "",
   });
-    const [minValue, set_minValue] = useState(25);
-    const [maxValue, set_maxValue] = useState(50);
+    const [minValue, setMinValue] = useState(25);
+    const [maxValue, setMaxValue] = useState(50);
     const handleAgeInput = (e) => {
-        set_minValue(e.minValue);
-        set_maxValue(e.maxValue);
+        setMinValue(e.minValue);
+        setMaxValue(e.maxValue);
 };
-
+    
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -32,7 +30,12 @@ function Questionaire() {
       return;
     }
 
-    setPromptDataSubmitted(promptData);
+    setPromptDataSubmitted({
+        happyPlace: promptData.happyPlace,
+        lookingFor: promptData.lookingFor,
+        ageLower: minValue,
+        ageUpper: maxValue
+    });
     navigate("/matches");
   }
 
@@ -71,9 +74,9 @@ function Questionaire() {
           <label>Between</label>
           <div className="slider-container">
             <div className="slider-label-container">
-                <input type="number"value={minValue}/>
+                <p>{minValue}</p>
                 <p>and</p>
-                <input type="number" value={maxValue}/>
+                <p>{maxValue}</p>
             </div>
             <MultiRangeSlider 
                 className='multi-range-slider' 
