@@ -49,6 +49,17 @@ function MatchPage() {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
+//    const lookingForGender = '';
+//     const selectAll = ["man", "woman", "non-binary"]
+
+//    if (lookingFor === "All") {
+//     lookingForGender = selectAll[randomNumber(0, selectAll.length - 1)]
+//    } else if(lookingFor === "Men/Women") {
+//     lookingForGender = selectAll.pop()[randomNumber(0, selectAll.length - 2)]
+//    } else if( lookingFor === "Men" || lookingFor === "Women") {
+//     lookingFor = 
+//    }
+
     const hairColor = ["redhead", "blonde", "brunette", "blonde", "brunette", "brunette", "blonde"];
     const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party", "on a train", "backpacking"]
 
@@ -94,9 +105,9 @@ function MatchPage() {
             <button onClick={() => navigate('/')}>Back</button>
             <h1>Match Page</h1>
             <div className={isMatch ? "is-match" : ""}>
-                {/* {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className="match-image"src={profileImageUrl}/> : null} */}
-                {isMatch ? <h3 className='is-match-text'>It's A Match !!! </h3> : null}
-                <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className='match-image' src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/>
+                {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
+                {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className= {isMatch ? "match-image" : "match-image match-image__before-click"} src={profileImageUrl}/> : null}
+                {/* <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className= {isMatch ? "match-image" : "match-image match-image__before-click"} src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/> */}
             </div>
             <button className="view-matches-button" onClick={handleSubmit}>View Matches</button>
         </div>
