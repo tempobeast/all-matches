@@ -65,7 +65,7 @@ function Questionaire() {
             <option>select:</option>
             <option>Women</option>
             <option>Men</option>
-            <option>Men/Women</option>
+            <option>Men and Women</option>
             <option>Non-binary</option>
             <option>All</option>
           </select>
