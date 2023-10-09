@@ -28,10 +28,18 @@ Swipe right to match or left to generate a new match image.
 
 In the future this app will include more prompts to create more detailed images. It will also include a full backend and database for persisting user and match data. It will also include a chat feature. It will also require several disclaimers to remind users that they are matching and chatting with AI. 
 
+To run this app you'll have to create an account with OpenAI. 
+
+Create a .env file in app and add: 
+
+`PORT=4000`
+`OPENAI_API_KEY = "Your-Open-AI-Key-Here"`
+
 ## Running a local server
 
 ```npm install --prefix app```
 ```npm run dev --prefix app```
+
 
 ```npm install --prefix client```
 ```npm start --prefix client```
