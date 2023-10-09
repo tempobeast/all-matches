@@ -13,8 +13,6 @@ Click View Matches and wait for the AI generated image to render.
 
 Administrators can upload new toys, update existing toys and delete toys that they would like to take out of circulation.
 
-![gif of new toy](https://media.giphy.com/media/i7jgwkIQBuMGsCTQ1S/giphy.gif)
-
 They can update existing order statuses from processing to shipped, shipped to returned or returned to restocked.
 
 ![gif of view matches](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODFlenIxNXF5NmVjbzJlYTJ1ejhjanY5ZGtjY2prd2szbXJtdzdhbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TfQHmSlNUQ0BhPLX5B/giphy.gif)
