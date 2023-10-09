@@ -9,12 +9,6 @@ Select your preferred gender, age, and activity.
 
 Click View Matches and wait for the AI generated image to render.
 
- ![gif of submit order](https://media.giphy.com/media/O6SvIr2AK9EGL2MVet/giphy.gif) 
-
-Administrators can upload new toys, update existing toys and delete toys that they would like to take out of circulation.
-
-They can update existing order statuses from processing to shipped, shipped to returned or returned to restocked.
-
 ![gif of view matches](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODFlenIxNXF5NmVjbzJlYTJ1ejhjanY5ZGtjY2prd2szbXJtdzdhbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TfQHmSlNUQ0BhPLX5B/giphy.gif)
 
 Swipe right to match or left to generate a new match image.
