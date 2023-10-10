@@ -2,7 +2,7 @@
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
-  apiKey: "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"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 async function generateProfile(req, res) {
