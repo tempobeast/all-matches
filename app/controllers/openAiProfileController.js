@@ -7,15 +7,15 @@ const openai = new OpenAI({
 
 async function generateProfile(req, res) {
 
-    const prompt = `Dating app picture, photo realistic, hyper realistic, 34 year old, brunette, attractive, alluring, woman, sigma 24 mm f/8 lens, smiling, loves the beach`
+   const { profilePrompt } = req.body;
 
     try {
         const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: `create a dating profile with name, age and 25 word bio using this prompt: ${prompt}` }],
+          messages: [{ role: 'user', content: `create a dating profile with name, age and 25 word bio using this prompt: ${profilePrompt}` }],
           model: 'gpt-3.5-turbo',
         });
 
-        const response = chatCompletion.choices
+        const response = chatCompletion
 
         res.status(200).json({
             success: true,

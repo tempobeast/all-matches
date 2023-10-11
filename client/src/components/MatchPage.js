@@ -7,6 +7,11 @@ function MatchPage() {
     const [ profileImageUrl, setProfileImageUrl ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false)
     const [ isMatch, setIsMatch ] = useState(false)
+    const [ profileInfo, setProfileInfo ] = useState({
+        name: '',
+        age: '',
+        bio: ''
+    })
     
     const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
     const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
@@ -60,6 +65,8 @@ function MatchPage() {
 //     lookingFor = 
 //    }
 
+    const profilePrompt = `34 year old woman who loves fish and karaoke, wants to travel the world, works in a high school and has a lust for life`
+
     const hairColor = ["redhead", "blonde", "brunette", "blonde", "brunette", "brunette", "blonde"];
     const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party", "on a train", "backpacking"]
 
@@ -68,6 +75,33 @@ function MatchPage() {
     function handleSubmit(e) {
       e.preventDefault();
       generateImageRequest(prompt)
+      generateProfile(profilePrompt)
+    }
+
+    async function generateProfile(profilePrompt) {
+
+        try {
+            const response = await fetch('/openai/generateprofile', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    profilePrompt: profilePrompt
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error('The profile cannot be generated')
+            }
+
+            const data = await response.json();
+
+            console.log(data.data.choices[0].messages.content)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
   
       async function generateImageRequest(imagePrompt) {
@@ -107,7 +141,6 @@ function MatchPage() {
             <div className={isMatch ? "is-match" : ""}>
                 {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
                 {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className= {isMatch ? "match-image" : "match-image match-image__before-click"} src={profileImageUrl}/> : null}
-                {/* <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} className= {isMatch ? "match-image" : "match-image match-image__before-click"} src='https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*'/> */}
             </div>
             <button className="view-matches-button" onClick={handleSubmit}>View Matches</button>
         </div>
