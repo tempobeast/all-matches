@@ -92,27 +92,6 @@ function Questionaire() {
                 barInnerColor="blue"
                 />
         </div>
-          {/* <p>{promptData.ageLower}</p>
-          <input
-            type='range'
-            min={18}
-            max={80}
-            name='ageLower'
-            value={promptData.ageLower}
-            onChange={handleChange}
-            className='slider'
-          />
-          <label>and</label>
-          <p>{promptData.ageUpper}</p>
-          <input
-            type='range'
-            min={19}
-            max={80}
-            name='ageUpper'
-            value={promptData.ageUpper}
-            onChange={handleChange}
-            className='slider'
-          /> */}
         </div>
         <label htmlFor='happy-place'>My happy place is...</label>
         <input
