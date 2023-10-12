@@ -7,11 +7,7 @@ function MatchPage() {
     const [ profileImageUrl, setProfileImageUrl ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false)
     const [ isMatch, setIsMatch ] = useState(false)
-    const [ profileInfo, setProfileInfo ] = useState({
-        name: '',
-        age: '',
-        bio: ''
-    })
+    const [ profileInfo, setProfileInfo ] = useState('')
     
     const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
     const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
@@ -65,7 +61,7 @@ function MatchPage() {
 //     lookingFor = 
 //    }
 
-    const profilePrompt = `34 year old woman who loves fish and karaoke, wants to travel the world, works in a high school and has a lust for life`
+    const profilePrompt = `${randomNumber(ageLower, ageUpper)} year old ${lookingFor} who loves ${happyPlace}.`
 
     const hairColor = ["redhead", "blonde", "brunette", "blonde", "brunette", "brunette", "blonde"];
     const location = ["at the beach", "at a sporting event", "in a forest", "on a sailboat", "at a party", "on a train", "backpacking"]
@@ -97,7 +93,7 @@ function MatchPage() {
 
             const data = await response.json();
 
-            console.log(data.data.choices[0].messages.content)
+            setProfileInfo(data.data.choices[0].message.content)
 
         } catch (error) {
             console.log(error)
@@ -142,6 +138,7 @@ function MatchPage() {
                 {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
                 {profileImageUrl ? <img onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}className= {isMatch ? "match-image" : "match-image match-image__before-click"} src={profileImageUrl}/> : null}
             </div>
+            <p>{profileInfo}</p>
             <button className="view-matches-button" onClick={handleSubmit}>View Matches</button>
         </div>
     )

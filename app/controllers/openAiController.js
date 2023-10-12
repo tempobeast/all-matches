@@ -34,9 +34,7 @@ const generateImage = async (req, res) => {
     } else {
       console.log(error.message);
     }
-
-  }
-    
+  } 
 }
 
 module.exports = { generateImage }
