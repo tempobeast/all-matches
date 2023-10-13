@@ -11,7 +11,7 @@ async function generateProfile(req, res) {
 
     try {
         const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: `create a dating profile with first name, age and 25 word bio using this prompt: ${profilePrompt}` }],
+          messages: [{ role: 'user', content: `create a dating profile with first name, age and 15-word bio using this prompt: ${profilePrompt}` }],
           model: 'gpt-3.5-turbo',
         });
 
