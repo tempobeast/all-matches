@@ -84,6 +84,12 @@ img {
   display: none
 }
 
+.match-profile{
+  border-radius: 20px;
+  margin: auto;
+  position: relative;
+}
+
 .is-match{
   width: 90%;
   box-shadow: 0 0 0 20px rgb(59, 176, 59);
@@ -104,6 +110,21 @@ img {
   justify-content: center;
   opacity: .65;
   margin: 0 auto;
+}
+
+.profile-info{
+  width: 80%;
+  bottom: 1%;
+  left: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:white;
+  position: absolute;
+  z-index: 25;
+  font-size: .85rem;
+  text-align: left;
+  box-shadow:inset;
 }
 
 .view-matches-button{
@@ -148,3 +169,16 @@ img {
   width: 100%;
   margin: 1rem 0 3rem;
 }
+
+.header{
+  display: flex;
+}
+
+.header__flame{
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
