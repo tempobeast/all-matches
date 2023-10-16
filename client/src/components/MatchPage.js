@@ -1,4 +1,4 @@
-import { useState, useContext, TouchEvent } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 
@@ -13,6 +13,8 @@ function MatchPage() {
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
   const navigate = useNavigate();
+
+  
 
   //Touch Event Test
 
@@ -163,8 +165,12 @@ function MatchPage() {
     setIsLoading(false);
   }
 
+  useEffect(() => {
+    randomizeProfileData()
+  },[])
+
   return (
-    <div>
+    <div className="match-page">
       {isLoading ? <div className='backdrop'></div> : null}
       {isLoading ? <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/> : null}
       <button onClick={() => navigate("/")}>Back</button>
