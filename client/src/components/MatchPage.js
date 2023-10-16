@@ -7,6 +7,8 @@ function MatchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
   const [profileInfo, setProfileInfo] = useState("");
+  const [profileImageFinal, setProfileImageFinal] = useState("")
+  const [profilePromptFinal, setProfilePromptFinal] = useState("")
 
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
@@ -23,7 +25,6 @@ function MatchPage() {
   function onTouchStart(e) {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
-    console.log(e);
   }
 
   function onTouchMove(e) {
@@ -38,8 +39,8 @@ function MatchPage() {
     const isRightSwipe = distance < -minSwipeDistance;
     if (isRightSwipe) {
       setIsMatch(true);
-    } else {
-      generateImageRequest(prompt);
+    } else if(isLeftSwipe) {
+      getNewMatch();
     }
   }
 
@@ -79,18 +80,35 @@ function MatchPage() {
     "backpacking",
   ];
 
+  const race = [
+    "black",
+    "caucasian",
+    "latinx",
+    "asian"
+  ]
+
+  function randomizeProfileData() {
+    const profileAge = randomNumber(ageLower, ageUpper);
+    const profileHairColor = hairColor[randomNumber(0, hairColor.length - 1)];
+    const profileLocation = location[randomNumber(0, location.length - 1)];
+    const profileRace = race[randomNumber(0, race.length - 1)]
+
+    const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
+    setProfileImageFinal(imagePrompt)
+    const profilePrompt = `${profileAge} year old ${lookingFor} who loves ${happyPlace || "life"}.`;
+    setProfilePromptFinal(profilePrompt)
+
+    getNewMatch()
+  }
+
+  function getNewMatch() {
+    generateImageRequest(profileImageFinal);
+    generateProfile(profilePromptFinal);
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    const finalAge = randomNumber(ageLower, ageUpper);
-    const finalHairColor = hairColor[randomNumber(0, hairColor.length - 1)];
-    const finalLocation = location[randomNumber(0, location.length - 1)];
-
-    const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${finalAge} year old, ${finalHairColor}, ${finalLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
-
-    const profilePrompt = `${finalAge} year old ${lookingFor} who loves ${happyPlace}.`;
-
-    generateImageRequest(imagePrompt);
-    generateProfile(profilePrompt);
+    randomizeProfileData()
   }
 
   async function generateProfile(profilePrompt) {
@@ -145,11 +163,10 @@ function MatchPage() {
     setIsLoading(false);
   }
 
-  console.log(profileInfo);
-
   return (
     <div>
       {isLoading ? <div className='backdrop'></div> : null}
+      {isLoading ? <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/> : null}
       <button onClick={() => navigate("/")}>Back</button>
       <h1>Match Page</h1>
       <div className={isMatch ? "is-match match-profile" : "match-profile"}>
