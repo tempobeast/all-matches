@@ -99,8 +99,6 @@ function MatchPage() {
     setProfileImageFinal(imagePrompt)
     const profilePrompt = `${profileAge} year old ${lookingFor} who loves ${happyPlace || "life"}.`;
     setProfilePromptFinal(profilePrompt)
-
-    getNewMatch()
   }
 
   function getNewMatch() {
@@ -110,7 +108,8 @@ function MatchPage() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    randomizeProfileData()
+    getNewMatch();
+    randomizeProfileData();
   }
 
   async function generateProfile(profilePrompt) {
@@ -170,25 +169,33 @@ function MatchPage() {
   },[])
 
   return (
-    <div className="match-page">
-      {isLoading ? <div className='backdrop'></div> : null}
-      {isLoading ? <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/> : null}
+    <div className="match-page content">
+      {
+        isMatch ?
+        <div className="backdrop__container">
+          <div className='backdrop'></div> 
+          <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/>
+        </div>
+        : null
+    }
       <button onClick={() => navigate("/")}>Back</button>
-      <h1>Match Page</h1>
+      {/* <h1>Match Page</h1> */}
       <div className={isMatch ? "is-match match-profile" : "match-profile"}>
         {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
         <p className='profile-info'>{profileInfo}</p>
-        {profileImageUrl ? (
-          <img
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            className={
-              isMatch ? "match-image" : "match-image match-image__before-click"
-            }
-            src={profileImageUrl}
-          />
-        ) : null}
+        <div className="match-image__container">
+          {profileImageUrl ? (
+            <img
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              className={
+                isMatch ? "match-image" : "match-image match-image__before-click"
+              }
+              src={profileImageUrl}
+            />
+          ) : null}
+        </div>
       </div>
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
