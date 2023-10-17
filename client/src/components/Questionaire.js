@@ -2,24 +2,21 @@ import { useState, useContext } from "react";
 import "../App.css";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { useNavigate } from "react-router-dom";
-import MultiRangeSlider from 'multi-range-slider-react';
-
+import MultiRangeSlider from "multi-range-slider-react";
 
 function Questionaire() {
-  const { setPromptDataSubmitted } = useContext(
-    PromptDataSubmittedContext
-  );
+  const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const [promptData, setPromptData] = useState({
     happyPlace: "",
     lookingFor: "",
   });
-    const [minValue, setMinValue] = useState(25);
-    const [maxValue, setMaxValue] = useState(50);
-    const handleAgeInput = (e) => {
-        setMinValue(e.minValue);
-        setMaxValue(e.maxValue);
-};
-    
+  const [minValue, setMinValue] = useState(25);
+  const [maxValue, setMaxValue] = useState(50);
+  const handleAgeInput = (e) => {
+    setMinValue(e.minValue);
+    setMaxValue(e.maxValue);
+  };
+
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -31,10 +28,10 @@ function Questionaire() {
     }
 
     setPromptDataSubmitted({
-        happyPlace: promptData.happyPlace,
-        lookingFor: promptData.lookingFor,
-        ageLower: minValue,
-        ageUpper: maxValue
+      happyPlace: promptData.happyPlace,
+      lookingFor: promptData.lookingFor,
+      ageLower: minValue,
+      ageUpper: maxValue,
     });
     navigate("/matches");
   }
@@ -72,26 +69,26 @@ function Questionaire() {
         </div>
         <div className='age-preference'>
           <label>Between</label>
-          <div className="slider-container">
-            <div className="slider-label-container">
-                <p>{minValue}</p>
-                <p>and</p>
-                <p>{maxValue}</p>
+          <div className='slider-container'>
+            <div className='slider-label-container'>
+              <p>{minValue}</p>
+              <p>and</p>
+              <p>{maxValue}</p>
             </div>
-            <MultiRangeSlider 
-                className='multi-range-slider' 
-                min={18} 
-                max={80} 
-                step={1}
-                minValue={minValue} 
-                maxValue={maxValue} 
-                onInput={(e) => handleAgeInput(e)}
-                style={{border: 'none', boxShadow: 'none', padding: '0'}}
-                label={false}
-                ruler={false}
-                barInnerColor="blue"
-                />
-        </div>
+            <MultiRangeSlider
+              className='multi-range-slider'
+              min={18}
+              max={80}
+              step={1}
+              minValue={minValue}
+              maxValue={maxValue}
+              onInput={(e) => handleAgeInput(e)}
+              style={{ border: "none", boxShadow: "none", padding: "0" }}
+              label={false}
+              ruler={false}
+              barInnerColor='blue'
+            />
+          </div>
         </div>
         <label htmlFor='happy-place'>My happy place is...</label>
         <input
