@@ -97,7 +97,7 @@ function MatchPage() {
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
     setProfileImageFinal(imagePrompt)
-    const profilePrompt = `${profileAge} year old ${lookingFor} who loves ${happyPlace || "life"}.`;
+    const profilePrompt = `age: ${profileAge}, bio: dating app profile bio involving ${happyPlace || " or lust for life"}.`;
     setProfilePromptFinal(profilePrompt)
   }
 
@@ -130,11 +130,12 @@ function MatchPage() {
 
       const data = await response.json();
 
-      setProfileInfo(data.data.choices[0].message.content);
+      setProfileInfo(JSON.parse(data.data.choices[0].message.content));
     } catch (error) {
       console.log(error);
     }
   }
+
 
   async function generateImageRequest(imagePrompt) {
     setIsMatch(false);
@@ -171,7 +172,7 @@ function MatchPage() {
   return (
     <div className="match-page content">
       {
-        isMatch ?
+        isLoading ?
         <div className="backdrop__container">
           <div className='backdrop'></div> 
           <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/>
@@ -182,7 +183,13 @@ function MatchPage() {
       {/* <h1>Match Page</h1> */}
       <div className={isMatch ? "is-match match-profile" : "match-profile"}>
         {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
-        <p className='profile-info'>{profileInfo}</p>
+        {!isLoading ? 
+          <div className="profile-info">
+            <p className='profile-info__first-name'>Name: {profileInfo.firstName}</p>
+            <p className='profile-info__age'>Age: {profileInfo.age}</p>
+            <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
+          </div>
+        : null}
         <div className="match-image__container">
           {profileImageUrl ? (
             <img
