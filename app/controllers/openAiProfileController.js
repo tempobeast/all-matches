@@ -5,13 +5,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+//need this to return json
+
 async function generateProfile(req, res) {
 
    const { profilePrompt } = req.body;
 
     try {
         const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: `create a dating profile with first name, age and 15-word bio using this prompt: ${profilePrompt}` }],
+          messages: [{ role: 'user', content: `return, in JSON form, a dating profile with keys firstName, age and bio which will have a 20word value using this prompt: ${profilePrompt}` }],
           model: 'gpt-3.5-turbo',
         });
 
