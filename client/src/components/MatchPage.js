@@ -97,7 +97,7 @@ function MatchPage() {
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
     setProfileImageFinal(imagePrompt)
-    const profilePrompt = `age: ${profileAge}, bio: dating app profile bio involving ${happyPlace || " or lust for life"}.`;
+    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, bio: dating app profile bio involving ${happyPlace || profileLocation}.`;
     setProfilePromptFinal(profilePrompt)
   }
 
@@ -181,28 +181,26 @@ function MatchPage() {
     }
       <button onClick={() => navigate("/")}>Back</button>
       {/* <h1>Match Page</h1> */}
-      <div className={isMatch ? "is-match match-profile" : "match-profile"}>
-        {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
-        {!isLoading ? 
-          <div className="profile-info">
-            <p className='profile-info__first-name'>Name: {profileInfo.firstName}</p>
-            <p className='profile-info__age'>Age: {profileInfo.age}</p>
-            <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
-          </div>
-        : null}
-        <div className="match-image__container">
+        <div className={isMatch ? "match-image__container is-match" : "match-image__container"}>
+          {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
+          {!isLoading && profileImageUrl ? 
+            <div className="profile-info">
+              <p className='profile-info__first-name'>Name: {profileInfo.first_name}</p>
+              <p className='profile-info__age'>Age: {profileInfo.age}</p>
+              <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
+            </div>
+          : null}
           {profileImageUrl ? (
             <img
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
               className={
-                isMatch ? "match-image" : "match-image match-image__before-click"
+                isMatch ? "match-image is-match" : "match-image match-image__before-click"
               }
               src={profileImageUrl}
             />
           ) : null}
-        </div>
       </div>
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
