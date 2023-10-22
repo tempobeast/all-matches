@@ -24,7 +24,7 @@
   font-family: Mooli;
   font-weight: bold;
   display: grid;
-  grid-template-rows: 2rem 40rem;
+  grid-template-rows: 2rem auto;
   grid-template-areas: "header"
                        "content"
 }
@@ -62,7 +62,7 @@ img {
 }
 
 .match-image__container{
-  margin: 4rem auto;
+  margin: 1rem auto;
   width: 90vw;
   height: 90vw;
   display: flex;
@@ -134,17 +134,21 @@ img {
   color:white;
   position: absolute;
   z-index: 25;
-  font-size: .9rem;
+  font-size: 1.25rem;
   text-align: left;
   text-shadow: 1px 1px black;
 }
 
 .profile-info__first-name,
-.profile-info__age,
-.profile-info__bio{
+.profile-info__age{
   margin: 0
 }
 
+.profile-info__bio{
+  margin: 0 auto 3rem;
+  width: 80%;
+  font-size: .9rem;
+}
 
 /* .view-matches-button{
   margin-top: 4rem;

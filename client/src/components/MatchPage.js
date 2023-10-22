@@ -187,7 +187,6 @@ function MatchPage() {
             <div className="profile-info">
               <p className='profile-info__first-name'>Name: {profileInfo.first_name}</p>
               <p className='profile-info__age'>Age: {profileInfo.age}</p>
-              <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
             </div>
           : null}
           {profileImageUrl ? (
@@ -202,6 +201,7 @@ function MatchPage() {
             />
           ) : null}
       </div>
+      {!isLoading && profileImageUrl ?  <p className='profile-info__bio'>Bio: {profileInfo.bio}</p> : null}
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
       </button>
