@@ -62,7 +62,7 @@ img {
 }
 
 .match-image__container{
-  margin: 2rem auto;
+  margin: 2rem auto 0;
   width: 90vw;
   height: 90vw;
   display: flex;
@@ -91,14 +91,7 @@ img {
 
 .match-image__before-click{
   width: 90%;
-  /* margin-top: 2rem; */
 }
-
-
-/* .match-page{
-  position: relative;
-  height: 450px;
-} */
 
 .is-match-text{
   width: 100%;
@@ -139,7 +132,7 @@ img {
 
 .profile-info__bio{
   margin: 0 auto 2rem;
-  width: 80%;
+  width: 85%;
   font-size: .9rem;
 }
 

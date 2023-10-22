@@ -200,7 +200,7 @@ function MatchPage() {
         ) : null}
       </div>
       {!isLoading && profileImageUrl ? (
-        <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
+        <p className='profile-info__bio'>{profileInfo.bio}</p>
       ) : null}
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
