@@ -73,20 +73,9 @@ img {
 }
 
 .match-image{
-  /* width: 100%; */
   border-radius: 20px;
-  /* position: relative; */
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
   box-shadow: 2px 2px 10px;
 }
-/* 
-.match-profile{
-  border-radius: 20px;
-  margin: auto;
-  position: relative;
-} */
 
 .is-match{
   width: 80vw;
@@ -161,7 +150,7 @@ img {
   z-index: 100;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65);
 }
 
 .backdrop-none {
@@ -221,15 +210,28 @@ img {
 
 
 .backdrop__flame{
-  width: 0px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 250;
+  animation: glisten 3s linear infinite;
 }
 
 .view-matches-button{
   margin-bottom: 1rem;
+}
+
+@keyframes glisten {
+  0% {
+      opacity: 0.5;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0.5;
+  }
 }
