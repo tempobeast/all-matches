@@ -7,14 +7,12 @@ function MatchPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
   const [profileInfo, setProfileInfo] = useState("");
-  const [profileImageFinal, setProfileImageFinal] = useState("")
-  const [profilePromptFinal, setProfilePromptFinal] = useState("")
+  const [profileImageFinal, setProfileImageFinal] = useState("");
+  const [profilePromptFinal, setProfilePromptFinal] = useState("");
 
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
   const navigate = useNavigate();
-
-  
 
   //Touch Event Test
 
@@ -41,7 +39,7 @@ function MatchPage() {
     const isRightSwipe = distance < -minSwipeDistance;
     if (isRightSwipe) {
       setIsMatch(true);
-    } else if(isLeftSwipe) {
+    } else if (isLeftSwipe) {
       getNewMatch();
     }
   }
@@ -82,23 +80,20 @@ function MatchPage() {
     "backpacking",
   ];
 
-  const race = [
-    "black",
-    "caucasian",
-    "latinx",
-    "asian"
-  ]
+  const race = ["black", "caucasian", "latinx", "asian"];
 
   function randomizeProfileData() {
     const profileAge = randomNumber(ageLower, ageUpper);
     const profileHairColor = hairColor[randomNumber(0, hairColor.length - 1)];
     const profileLocation = location[randomNumber(0, location.length - 1)];
-    const profileRace = race[randomNumber(0, race.length - 1)]
+    const profileRace = race[randomNumber(0, race.length - 1)];
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
-    setProfileImageFinal(imagePrompt)
-    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, bio: dating app profile bio involving ${happyPlace || profileLocation}.`;
-    setProfilePromptFinal(profilePrompt)
+    setProfileImageFinal(imagePrompt);
+    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, bio: dating app profile bio involving ${
+      happyPlace || profileLocation
+    }.`;
+    setProfilePromptFinal(profilePrompt);
   }
 
   function getNewMatch() {
@@ -136,7 +131,6 @@ function MatchPage() {
     }
   }
 
-
   async function generateImageRequest(imagePrompt) {
     setIsMatch(false);
     setIsLoading(true);
@@ -166,42 +160,48 @@ function MatchPage() {
   }
 
   useEffect(() => {
-    randomizeProfileData()
-  },[])
+    randomizeProfileData();
+  }, []);
 
   return (
-    <div className="match-page content">
-      {
-        isLoading ?
-        <div className="backdrop__container">
-          <div className='backdrop'></div> 
-          <img className="backdrop__flame" alt="all matches logo" src="all_matches_logo.png"/>
+    <div className='match-page content'>
+      {isLoading ? (
+        <div className='backdrop__container'>
+          <div className='backdrop'></div>
+          <img
+            className='backdrop__flame'
+            alt='all matches logo'
+            src='all_matches_logo.png'
+          />
         </div>
-        : null
-    }
+      ) : null}
       <button onClick={() => navigate("/")}>Back</button>
       {/* <h1>Match Page</h1> */}
-        <div className={isMatch ? "match-image__container is-match" : "match-image__container"}>
-          {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
-          {!isLoading && profileImageUrl ? 
-            <div className="profile-info">
-              <p className='profile-info__first-name'>Name: {profileInfo.first_name}</p>
-              <p className='profile-info__age'>Age: {profileInfo.age}</p>
-            </div>
-          : null}
-          {profileImageUrl ? (
-            <img
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-              className={
-                isMatch ? "match-image is-match" : "match-image match-image__before-click"
-              }
-              src={profileImageUrl}
-            />
-          ) : null}
+      <div className='match-image__container'>
+        {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
+        {!isLoading && profileImageUrl ? (
+          <div className='profile-info'>
+            <p className='profile-info__first-name'>{profileInfo.first_name}</p>
+            <p className='profile-info__age'>Age: {profileInfo.age}</p>
+          </div>
+        ) : null}
+        {profileImageUrl ? (
+          <img
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            className={
+              isMatch
+                ? "match-image is-match"
+                : "match-image match-image__before-click"
+            }
+            src={profileImageUrl}
+          />
+        ) : null}
       </div>
-      {!isLoading && profileImageUrl ?  <p className='profile-info__bio'>Bio: {profileInfo.bio}</p> : null}
+      {!isLoading && profileImageUrl ? (
+        <p className='profile-info__bio'>Bio: {profileInfo.bio}</p>
+      ) : null}
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
       </button>
