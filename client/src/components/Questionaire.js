@@ -8,10 +8,10 @@ function Questionaire() {
   const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const [promptData, setPromptData] = useState({
     happyPlace: "",
-    lookingFor: "",
+    lookingFor: "women",
   });
   const [minValue, setMinValue] = useState(25);
-  const [maxValue, setMaxValue] = useState(50);
+  const [maxValue, setMaxValue] = useState(35);
   const handleAgeInput = (e) => {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
@@ -44,7 +44,7 @@ function Questionaire() {
   }
 
   return (
-    <div>
+    <div className="content">
       <h2>About You</h2>
       <p className='about-intro'>
         Tell us a little bit about yourself and what you are looking for
