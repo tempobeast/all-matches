@@ -175,33 +175,44 @@ function MatchPage() {
           />
         </div>
       ) : null}
-      <button onClick={() => navigate("/")}>Back</button>
-      {/* <h1>Match Page</h1> */}
       <div className='match-image__container'>
         {isMatch ? <h3 className='is-match-text'>✅</h3> : null}
-        {!isLoading && profileImageUrl ? (
-          <div className='profile-info'>
-            <p className='profile-info__first-name'>{profileInfo.first_name}</p>
-            <p className='profile-info__age'>Age: {profileInfo.age}</p>
-          </div>
-        ) : null}
         {profileImageUrl ? (
-          <img
+          <div>
+            <img
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
             className={
               isMatch
-                ? "match-image is-match"
-                : "match-image match-image__before-click"
+              ? "match-image is-match"
+              : "match-image match-image__before-click"
             }
             src={profileImageUrl}
-          />
-        ) : null}
+            />
+            <div className="swipe-container">
+              <div className="left-swipe swipe" onClick={() => getNewMatch() }>
+                <p className="swipe-emoji">❌</p>
+              </div>
+              <div className="right-swipe swipe" onClick={() => setIsMatch(true)}>
+                <p className="swipe-emoji">💚</p>
+              </div>
+            </div>
+          </div>
+          ) : null}
       </div>
-      {!isLoading && profileImageUrl ? (
-        <p className='profile-info__bio'>{profileInfo.bio}</p>
+      {/* <button onClick={() => setProfileImageUrl('https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*')}>set profile image</button> */}
+      <div>
+          {!isLoading && profileImageUrl ? (
+            <div className='profile-info__container'>
+              <div className='profile-info'>
+                <p className='profile-info__first-name'>{profileInfo.first_name}</p>
+                <p className='profile-info__age'>{profileInfo.age}</p>
+              </div>
+              <p className='profile-info__bio'>{profileInfo.bio}</p>
+            </div>
       ) : null}
+      </div>
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
       </button>

@@ -14,16 +14,19 @@
   unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+* {
+  box-sizing: border-box;
+}
 
 .App {
-  box-sizing: border-box;
-  margin: 5rem auto 0 auto;
+  margin: auto;
+  height: 100vh;
   width: 90%;
   text-align: center;
   font-family: Mooli;
   font-weight: bold;
   display: grid;
-  grid-template-rows: 0 auto;
+  grid-template-rows: 0 fit-content(auto);
   grid-template-areas: "header"
                        "content"
 }
@@ -44,7 +47,10 @@ label{
 }
 
 img {
-  margin: auto
+  margin: auto;
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
 }
 
 .dating-preference-form {
@@ -65,8 +71,8 @@ img {
   width: 90vw;
   height: 90vw;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
 }
@@ -87,9 +93,9 @@ img {
   position: relative;
 }
 
-.match-image__before-click{
+/* .match-image__before-click{
   width: 90%;
-}
+} */
 
 .is-match-text{
   width: 100%;
@@ -105,40 +111,77 @@ img {
   margin: 0 auto;
 }
 
+.swipe-container{
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  bottom: 1.1rem;
+  width: 90%;
+  margin: -2rem auto;
+}
+
+.swipe{
+  width: 90px;
+  height: 90px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-swipe{
+  border: solid green 4px;
+}
+
+.left-swipe{
+  border: solid red 4px; 
+}
+
+.swipe-emoji{
+  font-size: 45px;
+  margin: 0;
+  
+}
+
 .profile-info{
-  width: 80%;
-  bottom: 10%;
-  left: 10%;
-  /* display: flex; */
+  margin: auto;
+  width: 85%;
+  display: flex;
   flex-direction: row;
-  color:white;
-  position: absolute;
+  align-items: baseline;
+  color:black;
   z-index: 25;
-  font-size: 1.25rem;
   text-align: left;
-  text-shadow: 2px 2px black;
+  /* text-shadow: 2px 2px black; */
 }
 
 .profile-info__first-name,
 .profile-info__age{
-  margin: 0
+  margin: .5rem .5rem .5rem 0
+}
+
+.profile-info__first-name{
+  font-size: 1.5rem;
 }
 
 .profile-info__age{
   font-size: 1rem;
+  color: blue;
 }
 
 .profile-info__bio{
   margin: 0 auto 2rem;
   width: 85%;
-  font-size: .9rem;
+  font-size: .8rem;
+  text-align: left;
 }
 
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 500;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.65);
@@ -193,6 +236,11 @@ img {
   position: absolute;
   top: 1rem;
   right: 1rem;
+  z-index: 100;
+}
+
+.header__flame:hover{
+  cursor: pointer;
 }
 
 
@@ -203,7 +251,7 @@ img {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 250;
+  z-index: 501;
   animation: glisten 3s linear infinite;
 }
 
@@ -220,5 +268,12 @@ img {
   }
   100% {
       opacity: 0.5;
+  }
+}
+
+@media (min-width: 40rem) {
+  .match-image,
+  .match-image__before-click{
+    width: 32rem;
   }
 }
