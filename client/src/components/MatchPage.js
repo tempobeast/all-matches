@@ -203,7 +203,7 @@ function MatchPage() {
       </div>
       {/* <button onClick={() => setProfileImageUrl('https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*')}>set profile image</button> */}
       <div>
-          {!isLoading && profileImageUrl ? (
+          {profileInfo && profileImageUrl ? (
             <div className='profile-info__container'>
               <div className='profile-info'>
                 <p className='profile-info__first-name'>{profileInfo.first_name}</p>

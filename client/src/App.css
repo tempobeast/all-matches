@@ -67,7 +67,7 @@ img {
 }
 
 .match-image__container{
-  margin: 2rem auto 0;
+  margin: 2rem auto 2rem;
   width: 90vw;
   height: 90vw;
   display: flex;
@@ -128,6 +128,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .right-swipe{
@@ -184,7 +185,7 @@ img {
   z-index: 500;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .backdrop-none {
