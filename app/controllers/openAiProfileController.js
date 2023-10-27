@@ -13,7 +13,7 @@ async function generateProfile(req, res) {
 
     try {
         const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: `return, in JSON form, a dating profile with keys first_name, age and bio which will have a 20 word value using this prompt: ${profilePrompt}` }],
+          messages: [{ role: 'user', content: `return, in JSON form, a dating profile with keys first_name, age, location and bio which will have a 20 word value using this prompt: ${profilePrompt}` }],
           model: 'gpt-3.5-turbo',
         });
 

@@ -90,7 +90,7 @@ function MatchPage() {
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
     setProfileImageFinal(imagePrompt);
-    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, bio: dating app profile bio involving ${
+    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, location: random town within 30 miles of longitude ${promptDataSubmitted.city.longitude} and latitude ${promptDataSubmitted.city.latitude}, and bio: dating app profile bio involving ${
       happyPlace || profileLocation
     }.`;
     setProfilePromptFinal(profilePrompt);
@@ -159,6 +159,8 @@ function MatchPage() {
     setIsLoading(false);
   }
 
+  console.log(profileInfo)
+
   useEffect(() => {
     randomizeProfileData();
   }, []);
@@ -209,6 +211,7 @@ function MatchPage() {
                 <p className='profile-info__first-name'>{profileInfo.first_name}</p>
                 <p className='profile-info__age'>{profileInfo.age}</p>
               </div>
+              <p>{profileInfo.location}</p>
               <p className='profile-info__bio'>{profileInfo.bio}</p>
             </div>
       ) : null}
