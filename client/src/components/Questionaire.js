@@ -3,6 +3,7 @@ import "../App.css";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { useNavigate } from "react-router-dom";
 import MultiRangeSlider from "multi-range-slider-react";
+import {Country, State, City} from 'country-state-city'
 
 function Questionaire() {
   const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
@@ -16,6 +17,13 @@ function Questionaire() {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
+
+  const states = State.getStatesOfCountry('US')
+  console.log(states[2].name)
+
+  const statesToDisplay = states.map((state) => {
+    <option value={state.name} key={state.name}>{state.name}</option>
+  })
 
   const navigate = useNavigate();
 
@@ -98,6 +106,10 @@ function Questionaire() {
           value={promptData.happyPlace}
           onChange={handleChange}
         />
+        <label>State:</label>
+        <select>
+          {statesToDisplay}
+        </select>
         <button type='submit'>Next</button>
       </form>
     </div>
