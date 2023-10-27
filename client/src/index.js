@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { PromptDataSubmittedProvider } from "./context/promptDataSubmitted";
+import { StatesProvider } from "./context/states";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <PromptDataSubmittedProvider>
-    <App />
+    <StatesProvider>
+      <App />
+    </StatesProvider>
   </PromptDataSubmittedProvider>
 );
 
