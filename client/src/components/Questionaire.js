@@ -1,12 +1,18 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import "../App.css";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
+// import { StatesContext } from '../context/states'
 import { useNavigate } from "react-router-dom";
 import MultiRangeSlider from "multi-range-slider-react";
-import {Country, State, City} from 'country-state-city'
+// import {Country, State, City} from 'country-state-city'
+import Location from "./Location";
 
 function Questionaire() {
   const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
+  // const { states, setStates} = useContext(StatesContext)
+  // const [ stateLocation, setStateLocation ] = useState({})
+  // const [ citiesInState, setCitiesInState ] = useState([])
+  const [cityLocation, setCityLocation] = useState({});
   const [promptData, setPromptData] = useState({
     happyPlace: "",
     lookingFor: "women",
@@ -17,14 +23,6 @@ function Questionaire() {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
-
-  const states = State.getStatesOfCountry('US')
-  console.log(states[2].name)
-
-  const statesToDisplay = states.map((state) => {
-    <option value={state.name} key={state.name}>{state.name}</option>
-  })
-
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -40,9 +38,11 @@ function Questionaire() {
       lookingFor: promptData.lookingFor,
       ageLower: minValue,
       ageUpper: maxValue,
+      city: cityLocation,
     });
     navigate("/matches");
   }
+  console.log(cityLocation)
 
   function handleChange(e) {
     setPromptData({
@@ -52,7 +52,7 @@ function Questionaire() {
   }
 
   return (
-    <div className="content">
+    <div className='content'>
       <h2>About You</h2>
       <p className='about-intro'>
         Tell us a little bit about yourself and what you are looking for
@@ -106,10 +106,9 @@ function Questionaire() {
           value={promptData.happyPlace}
           onChange={handleChange}
         />
-        <label>State:</label>
-        <select>
-          {statesToDisplay}
-        </select>
+        <hr></hr>
+        <Location setCityLocation={setCityLocation} />
+        <hr></hr>
         <button type='submit'>Next</button>
       </form>
     </div>
