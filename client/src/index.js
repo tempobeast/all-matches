@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { PromptDataSubmittedProvider } from "./context/promptDataSubmitted";
 import { StatesProvider } from "./context/states";
+import { CitiesInStateProvider } from "./context/citiesInState";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <PromptDataSubmittedProvider>
     <StatesProvider>
-      <App />
+      <CitiesInStateProvider>
+        <App />
+      </CitiesInStateProvider>
     </StatesProvider>
   </PromptDataSubmittedProvider>
 );
