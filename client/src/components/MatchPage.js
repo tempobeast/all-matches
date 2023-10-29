@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
+import { CitiesInStateContext } from "../context/citiesInState";
 
 function MatchPage() {
   const [profileImageUrl, setProfileImageUrl] = useState("");
@@ -9,10 +10,16 @@ function MatchPage() {
   const [profileInfo, setProfileInfo] = useState("");
   const [profileImageFinal, setProfileImageFinal] = useState("");
   const [profilePromptFinal, setProfilePromptFinal] = useState("");
+  const [ matchLocation, setMatchLocation ] = useState('')
 
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  const { ageLower, ageUpper, happyPlace, lookingFor } = promptDataSubmitted;
+  const { ageLower, ageUpper, happyPlace, lookingFor, city } = promptDataSubmitted;
+  const { citiesInState, setCitiesInState } = useContext(CitiesInStateContext)
   const navigate = useNavigate();
+
+  console.log(promptDataSubmitted)
+  
+  console.log(matchLocation)
 
   //Touch Event Test
 
@@ -78,23 +85,38 @@ function MatchPage() {
     "at a party",
     "on a train",
     "backpacking",
+    "visiting a world monument"
   ];
-
+  
   const race = ["black", "caucasian", "latinx", "asian"];
-
+ 
+  const nearbyCities = citiesInState.filter((citySearch) => {
+    return (
+      parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
+      parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
+      parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
+      parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
+    );
+  });
+  
   function randomizeProfileData() {
     const profileAge = randomNumber(ageLower, ageUpper);
     const profileHairColor = hairColor[randomNumber(0, hairColor.length - 1)];
     const profileLocation = location[randomNumber(0, location.length - 1)];
     const profileRace = race[randomNumber(0, race.length - 1)];
+    const matchesCity = nearbyCities[randomNumber(0, nearbyCities.length - 1)]
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
     setProfileImageFinal(imagePrompt);
-    const profilePrompt = `first_name: random name for a ${lookingFor}, age: ${profileAge}, location: random town within 30 miles of longitude ${promptDataSubmitted.city.longitude} and latitude ${promptDataSubmitted.city.latitude}, and bio: dating app profile bio involving ${
+    const profilePrompt = `In JSON - first_name: random name for a ${lookingFor}, age: ${profileAge}, location: ${matchesCity.name} and bio: dating app profile bio involving ${
       happyPlace || profileLocation
     }.`;
+    setMatchLocation(matchesCity.name)
     setProfilePromptFinal(profilePrompt);
   }
+
+
+  console.log(nearbyCities)
 
   function getNewMatch() {
     generateImageRequest(profileImageFinal);
@@ -211,7 +233,7 @@ function MatchPage() {
                 <p className='profile-info__first-name'>{profileInfo.first_name}</p>
                 <p className='profile-info__age'>{profileInfo.age}</p>
               </div>
-              <p>{profileInfo.location}</p>
+              <p className="profile-info__location">🏠{profileInfo.location}</p>
               <p className='profile-info__bio'>{profileInfo.bio}</p>
             </div>
       ) : null}
