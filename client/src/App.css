@@ -185,6 +185,14 @@ img {
   text-align: left;
 }
 
+.profile-info__location{
+  width: 85%;
+  text-align: left;
+  margin: 1rem auto;
+  font-size: 1rem;
+  
+}
+
 .backdrop {
   position: fixed;
   top: 0;
