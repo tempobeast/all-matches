@@ -2,11 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { StatesContext } from "../context/states";
+import { CitiesInStateContext } from "../context/citiesInState";
 
-function Location({ setCityLocation }) {
+function Location({ cityLocation, setCityLocation }) {
   const { states, setStates } = useContext(StatesContext);
   const [stateLocation, setStateLocation] = useState({});
-  const [citiesInState, setCitiesInState] = useState([]);
+  const {citiesInState, setCitiesInState} = useContext(CitiesInStateContext);
 
   useEffect(() => {
     setStates(State.getStatesOfCountry("US"));
@@ -30,13 +31,24 @@ function Location({ setCityLocation }) {
     const state = states.find((state) => state.isoCode === e.target.value);
     setStateLocation(state);
     setCitiesInState(City.getCitiesOfState("US", `${e.target.value}`));
-    setCityLocation({})
+    setCityLocation({});
   }
 
   function handleCityChange(e) {
     const city = citiesInState.find((city) => city.name === e.target.value);
     setCityLocation(city);
   }
+
+  const nearbyCities = citiesInState.filter((city) => {
+    return (
+      parseFloat(city.latitude) > parseFloat(cityLocation.latitude) - 0.3 &&
+      parseFloat(city.latitude) < parseFloat(cityLocation.latitude) + 0.3 &&
+      parseFloat(city.longitude) > parseFloat(cityLocation.longitude) - 0.3 &&
+      parseFloat(city.longitude) < parseFloat(cityLocation.longitude) + 0.3
+    );
+  });
+
+  //   const nearCityLimits = [parseFloat(cityLocation.latitude) - 0.15, parseFloat(cityLocation.latitude) + 0.15, parseFloat(city.longitude) - 0.15, parseFloat(city.longitude) + 0.15]
 
   return (
     <div>
