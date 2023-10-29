@@ -1,17 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import "../App.css";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
-// import { StatesContext } from '../context/states'
 import { useNavigate } from "react-router-dom";
 import MultiRangeSlider from "multi-range-slider-react";
-// import {Country, State, City} from 'country-state-city'
 import Location from "./Location";
 
 function Questionaire() {
   const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  // const { states, setStates} = useContext(StatesContext)
-  // const [ stateLocation, setStateLocation ] = useState({})
-  // const [ citiesInState, setCitiesInState ] = useState([])
   const [cityLocation, setCityLocation] = useState({});
   const [promptData, setPromptData] = useState({
     happyPlace: "",
@@ -42,7 +37,6 @@ function Questionaire() {
     });
     navigate("/matches");
   }
-  console.log(cityLocation)
 
   function handleChange(e) {
     setPromptData({
@@ -50,6 +44,7 @@ function Questionaire() {
       [e.target.name]: e.target.value,
     });
   }
+
 
   return (
     <div className='content'>
@@ -107,7 +102,7 @@ function Questionaire() {
           onChange={handleChange}
         />
         <hr></hr>
-        <Location setCityLocation={setCityLocation} />
+        <Location setCityLocation={setCityLocation} cityLocation={cityLocation} />
         <hr></hr>
         <button type='submit'>Next</button>
       </form>
