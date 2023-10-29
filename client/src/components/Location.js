@@ -39,17 +39,6 @@ function Location({ cityLocation, setCityLocation }) {
     setCityLocation(city);
   }
 
-  const nearbyCities = citiesInState.filter((city) => {
-    return (
-      parseFloat(city.latitude) > parseFloat(cityLocation.latitude) - 0.3 &&
-      parseFloat(city.latitude) < parseFloat(cityLocation.latitude) + 0.3 &&
-      parseFloat(city.longitude) > parseFloat(cityLocation.longitude) - 0.3 &&
-      parseFloat(city.longitude) < parseFloat(cityLocation.longitude) + 0.3
-    );
-  });
-
-  //   const nearCityLimits = [parseFloat(cityLocation.latitude) - 0.15, parseFloat(cityLocation.latitude) + 0.15, parseFloat(city.longitude) - 0.15, parseFloat(city.longitude) + 0.15]
-
   return (
     <div>
       <select
