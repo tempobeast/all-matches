@@ -9,13 +9,13 @@ function MatchPage() {
   const [profileInfo, setProfileInfo] = useState("");
   const [profileImageFinal, setProfileImageFinal] = useState("");
   const [profilePromptFinal, setProfilePromptFinal] = useState("");
-  const [ setMatchLocation ] = useState('')
 
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor, city } = promptDataSubmitted;
-  const { citiesInState } = useContext(CitiesInStateContext)
+  const { citiesInState, setCitiesInState } = useContext(CitiesInStateContext)
 
-  //Touch Event
+  //Touch Event Test
+
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const [touchDistance, setTouchDistance] = useState(null);
@@ -84,7 +84,6 @@ function MatchPage() {
     const profilePrompt = `In JSON - first_name: random name for a ${lookingFor}, age: ${profileAge}, location: ${matchesCity.name} and bio: dating app profile bio involving ${
       happyPlace || profileLocation
     }.`;
-    setMatchLocation(matchesCity.name)
     setProfilePromptFinal(profilePrompt);
   }
 
