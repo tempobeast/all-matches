@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { CitiesInStateContext } from "../context/citiesInState";
+import { hairColor, location, race } from '../helpers/promptDataSeeds'
 
 function MatchPage() {
   const [profileImageUrl, setProfileImageUrl] = useState("");
@@ -13,7 +14,6 @@ function MatchPage() {
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor, city } = promptDataSubmitted;
   const { citiesInState, setCitiesInState } = useContext(CitiesInStateContext)
-
   //Touch Event Test
 
   const [touchStart, setTouchStart] = useState(null);
@@ -44,29 +44,6 @@ function MatchPage() {
     }
   }
 
-  //seed data to randomize match
-  const hairColor = [
-    "redhead",
-    "blonde",
-    "brunette",
-    "blonde",
-    "brunette",
-    "brunette",
-    "blonde",
-  ];
-  const location = [
-    "at the beach",
-    "at a sporting event",
-    "in a forest",
-    "on a sailboat",
-    "at a party",
-    "on a train",
-    "backpacking",
-    "visiting a world monument"
-  ];
-  
-  const race = ["black", "caucasian", "latinx", "asian"];
-
   //randomizes data for first submit
   useEffect(() => {
     randomizeProfileData();
@@ -87,10 +64,8 @@ function MatchPage() {
     setProfilePromptFinal(profilePrompt);
   }
 
-  function randomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.ceil(max);
-    return Math.floor(Math.random() * (max - min) + min);
+  function randomNumber(arrayLength) {
+    return Math.floor(Math.random() * arrayLength);
   }
 
   //takes user's location and .3 degree lat,long radius for matches
