@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
 import { CitiesInStateContext } from "../context/citiesInState";
 
@@ -10,19 +9,13 @@ function MatchPage() {
   const [profileInfo, setProfileInfo] = useState("");
   const [profileImageFinal, setProfileImageFinal] = useState("");
   const [profilePromptFinal, setProfilePromptFinal] = useState("");
-  const [ matchLocation, setMatchLocation ] = useState('')
+  const [ setMatchLocation ] = useState('')
 
   const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
   const { ageLower, ageUpper, happyPlace, lookingFor, city } = promptDataSubmitted;
-  const { citiesInState, setCitiesInState } = useContext(CitiesInStateContext)
-  const navigate = useNavigate();
+  const { citiesInState } = useContext(CitiesInStateContext)
 
-  console.log(promptDataSubmitted)
-  
-  console.log(matchLocation)
-
-  //Touch Event Test
-
+  //Touch Event
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const [touchDistance, setTouchDistance] = useState(null);
@@ -51,23 +44,7 @@ function MatchPage() {
     }
   }
 
-  function randomNumber(min, max) {
-    min = Math.ceil(min);
-    max = Math.ceil(max);
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
-  //    const lookingForGender = '';
-  //     const selectAll = ["man", "woman", "non-binary"]
-
-  //    if (lookingFor === "All") {
-  //     lookingForGender = selectAll[randomNumber(0, selectAll.length - 1)]
-  //    } else if(lookingFor === "Men/Women") {
-  //     lookingForGender = selectAll.pop()[randomNumber(0, selectAll.length - 2)]
-  //    } else if( lookingFor === "Men" || lookingFor === "Women") {
-  //     lookingFor =
-  //    }
-
+  //seed data to randomize match
   const hairColor = [
     "redhead",
     "blonde",
@@ -89,15 +66,11 @@ function MatchPage() {
   ];
   
   const race = ["black", "caucasian", "latinx", "asian"];
- 
-  const nearbyCities = citiesInState.filter((citySearch) => {
-    return (
-      parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
-      parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
-      parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
-      parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
-    );
-  });
+
+  //randomizes data for first submit
+  useEffect(() => {
+    randomizeProfileData();
+  }, []);
   
   function randomizeProfileData() {
     const profileAge = randomNumber(ageLower, ageUpper);
@@ -115,9 +88,22 @@ function MatchPage() {
     setProfilePromptFinal(profilePrompt);
   }
 
+  function randomNumber(min, max) {
+    min = Math.ceil(min);
+    max = Math.ceil(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
-  console.log(nearbyCities)
-
+  //takes user's location and .3 degree lat,long radius for matches
+  const nearbyCities = citiesInState.filter((citySearch) => {
+    return (
+      parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
+      parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
+      parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
+      parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
+    );
+  });
+  
   function getNewMatch() {
     generateImageRequest(profileImageFinal);
     generateProfile(profilePromptFinal);
@@ -181,12 +167,6 @@ function MatchPage() {
     setIsLoading(false);
   }
 
-  console.log(profileInfo)
-
-  useEffect(() => {
-    randomizeProfileData();
-  }, []);
-
   return (
     <div className='match-page content'>
       {isLoading ? (
@@ -225,7 +205,6 @@ function MatchPage() {
           </div>
           ) : null}
       </div>
-      {/* <button onClick={() => setProfileImageUrl('https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*')}>set profile image</button> */}
       <div>
           {profileInfo && profileImageUrl ? (
             <div className='profile-info__container'>

@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Country, State, City } from "country-state-city";
-import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
+import { State, City } from "country-state-city";
 import { StatesContext } from "../context/states";
 import { CitiesInStateContext } from "../context/citiesInState";
 
-function Location({ cityLocation, setCityLocation }) {
+function Location({ setCityLocation }) {
   const { states, setStates } = useContext(StatesContext);
   const [stateLocation, setStateLocation] = useState({});
   const {citiesInState, setCitiesInState} = useContext(CitiesInStateContext);
