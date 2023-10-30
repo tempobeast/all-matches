@@ -1,7 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useContext, useState } from "react";
-import PromptTest from "./components/PromptTest";
 import Questionaire from "./components/Questionaire";
 import MatchPage from "./components/MatchPage";
 import Header from "./components/Header";
@@ -19,7 +18,6 @@ function App() {
         <Routes>
             <Route path='/matches' element={<MatchPage />} />
             <Route path='/' element={<Questionaire />} />
-          <Route path='/prompt-test' element={<PromptTest />} />
         </Routes>
       </BrowserRouter>
     </div>
