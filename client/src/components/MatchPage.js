@@ -51,10 +51,10 @@ function MatchPage() {
   
   function randomizeProfileData() {
     const profileAge = randomNumber(ageLower, ageUpper);
-    const profileHairColor = hairColor[randomNumber(0, hairColor.length - 1)];
-    const profileLocation = location[randomNumber(0, location.length - 1)];
-    const profileRace = race[randomNumber(0, race.length - 1)];
-    const matchesCity = nearbyCities[randomNumber(0, nearbyCities.length - 1)]
+    const profileHairColor = hairColor[randomNumber(hairColor.length - 1)];
+    const profileLocation = location[randomNumber(location.length - 1)];
+    const profileRace = race[randomNumber(race.length - 1)];
+    const matchesCity = nearbyCities[randomNumber(nearbyCities.length - 1)]
 
     const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
     setProfileImageFinal(imagePrompt);
