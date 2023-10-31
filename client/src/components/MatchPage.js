@@ -69,15 +69,24 @@ function MatchPage() {
   }
 
   //takes user's location and .3 degree lat,long radius for matches
-  const nearbyCities = citiesInState.filter((citySearch) => {
-    return (
-      parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
-      parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
-      parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
-      parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
-    );
-  });
+  // const nearbyCities = citiesInState.filter((citySearch) => {
+  //   return (
+  //     parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
+  //     parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
+  //     parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
+  //     parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
+  //   );
+  // });
   
+  const nearbyCities = citiesInState.filter((citySearch) => {
+    const distanceX = city.latitude - citySearch.latitude;
+    const distanceY = city.longitude - citySearch.longitude;
+
+    return(Math.hypot(distanceX, distanceY) < .35)
+  })
+
+  console.log(nearbyCities)
+
   function getNewMatch() {
     generateImageRequest(profileImageFinal);
     generateProfile(profilePromptFinal);
