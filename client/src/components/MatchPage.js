@@ -7,8 +7,7 @@ function MatchPage() {
   const [isMatch, setIsMatch] = useState(false);
   const [profileInfo, setProfileInfo] = useState({});
 
-  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  const { ageLower, ageUpper, city } = promptDataSubmitted;
+  const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
 
   //Touch Event Test
 

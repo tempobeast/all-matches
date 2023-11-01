@@ -6,8 +6,9 @@ import MultiRangeSlider from "multi-range-slider-react";
 import Location from "./Location";
 
 function Questionaire() {
+  const navigate = useNavigate();
   const { setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  const [cityLocation, setCityLocation] = useState({});
+  const [ userCity, setUserCity] = useState({});
   const [promptData, setPromptData] = useState({
     happyPlace: "",
     lookingFor: "women",
@@ -18,7 +19,6 @@ function Questionaire() {
     setMinValue(e.minValue);
     setMaxValue(e.maxValue);
   };
-  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +31,7 @@ function Questionaire() {
       happyPlace: promptData.happyPlace,
       lookingFor: promptData.lookingFor,
       age: randomNumber(minValue, maxValue),
-      city: cityLocation,
+      city: userCity,
     });
     navigate("/matches");
   }
@@ -100,7 +100,7 @@ function Questionaire() {
           onChange={handleChange}
         />
         <hr></hr>
-        <Location setCityLocation={setCityLocation} cityLocation={cityLocation} />
+        <Location setUserCity={setUserCity} userCity={userCity} />
         <hr></hr>
         <button type='submit'>Next</button>
       </form>

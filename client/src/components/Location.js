@@ -3,7 +3,7 @@ import { State, City } from "country-state-city";
 import { StatesContext } from "../context/states";
 import { CitiesInStateContext } from "../context/citiesInState";
 
-function Location({ setCityLocation }) {
+function Location({ setUserCity }) {
   const { states, setStates } = useContext(StatesContext);
   const [stateLocation, setStateLocation] = useState({});
   const {citiesInState, setCitiesInState} = useContext(CitiesInStateContext);
@@ -30,12 +30,12 @@ function Location({ setCityLocation }) {
     const state = states.find((state) => state.isoCode === e.target.value);
     setStateLocation(state);
     setCitiesInState(City.getCitiesOfState("US", `${e.target.value}`));
-    setCityLocation({});
+    setUserCity({});
   }
 
   function handleCityChange(e) {
     const city = citiesInState.find((city) => city.name === e.target.value);
-    setCityLocation(city);
+    setUserCity(city);
   }
 
   return (
