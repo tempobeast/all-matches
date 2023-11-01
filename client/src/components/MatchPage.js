@@ -1,19 +1,15 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { PromptDataSubmittedContext } from "../context/promptDataSubmitted";
-import { CitiesInStateContext } from "../context/citiesInState";
-import { hairColor, location, race } from '../helpers/promptDataSeeds'
 
 function MatchPage() {
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
-  const [profileInfo, setProfileInfo] = useState("");
-  const [profileImageFinal, setProfileImageFinal] = useState("");
-  const [profilePromptFinal, setProfilePromptFinal] = useState("");
+  const [profileInfo, setProfileInfo] = useState({});
 
-  const { promptDataSubmitted } = useContext(PromptDataSubmittedContext);
-  const { ageLower, ageUpper, happyPlace, lookingFor, city } = promptDataSubmitted;
-  const { citiesInState, setCitiesInState } = useContext(CitiesInStateContext)
+  const { promptDataSubmitted, setPromptDataSubmitted } = useContext(PromptDataSubmittedContext);
+  const { ageLower, ageUpper, city } = promptDataSubmitted;
+
   //Touch Event Test
 
   const [touchStart, setTouchStart] = useState(null);
@@ -44,61 +40,17 @@ function MatchPage() {
     }
   }
 
-  //randomizes data for first submit
-  useEffect(() => {
-    randomizeProfileData();
-  }, []);
-  
-  function randomizeProfileData() {
-    const profileAge = randomNumber(ageLower, ageUpper);
-    const profileHairColor = hairColor[randomNumber(hairColor.length - 1)];
-    const profileLocation = location[randomNumber(location.length - 1)];
-    const profileRace = race[randomNumber(race.length - 1)];
-    const matchesCity = nearbyCities[randomNumber(nearbyCities.length - 1)]
-
-    const imagePrompt = `Dating app picture, photo realistic, hyper realistic, ${profileAge} year old, ${profileRace}, ${profileHairColor}, ${profileLocation}, attractive, alluring, ${lookingFor}, sigma 24 mm f/8 lens, smiling, ${happyPlace}`;
-    setProfileImageFinal(imagePrompt);
-    const profilePrompt = `In JSON - first_name: random name for a ${lookingFor}, age: ${profileAge}, location: ${matchesCity.name} and bio: dating app profile bio involving ${
-      happyPlace || profileLocation
-    }.`;
-    setProfilePromptFinal(profilePrompt);
-  }
-
-  function randomNumber(arrayLength) {
-    return Math.floor(Math.random() * arrayLength);
-  }
-
-  //takes user's location and .3 degree lat,long radius for matches
-  // const nearbyCities = citiesInState.filter((citySearch) => {
-  //   return (
-  //     parseFloat(citySearch.latitude) > parseFloat(city.latitude) - 0.3 &&
-  //     parseFloat(citySearch.latitude) < parseFloat(city.latitude) + 0.3 &&
-  //     parseFloat(citySearch.longitude) > parseFloat(city.longitude) - 0.3 &&
-  //     parseFloat(citySearch.longitude) < parseFloat(city.longitude) + 0.3
-  //   );
-  // });
-  
-  const nearbyCities = citiesInState.filter((citySearch) => {
-    const distanceX = city.latitude - citySearch.latitude;
-    const distanceY = city.longitude - citySearch.longitude;
-
-    return(Math.hypot(distanceX, distanceY) < .35)
-  })
-
-  console.log(nearbyCities)
-
   function getNewMatch() {
-    generateImageRequest(profileImageFinal);
-    generateProfile(profilePromptFinal);
+    generateImageRequest();
+    generateProfile();
   }
 
   function handleSubmit(e) {
     e.preventDefault();
     getNewMatch();
-    randomizeProfileData();
   }
 
-  async function generateProfile(profilePrompt) {
+  async function generateProfile() {
     try {
       const response = await fetch("/openai/generateprofile", {
         method: "POST",
@@ -106,7 +58,7 @@ function MatchPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          profilePrompt: profilePrompt,
+          promptDataSubmitted,
         }),
       });
 
@@ -116,13 +68,19 @@ function MatchPage() {
 
       const data = await response.json();
 
-      setProfileInfo(JSON.parse(data.data.choices[0].message.content));
+      const chatData = JSON.parse(data.chatData.choices[0].message.content);
+      const nonChatData = JSON.parse(data.nonChatData);
+
+      setProfileInfo({
+        ...chatData,
+        ...nonChatData,
+      });
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function generateImageRequest(imagePrompt) {
+  async function generateImageRequest() {
     setIsMatch(false);
     setIsLoading(true);
 
@@ -133,7 +91,7 @@ function MatchPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: imagePrompt,
+          promptDataSubmitted,
         }),
       });
 
@@ -167,38 +125,43 @@ function MatchPage() {
         {profileImageUrl ? (
           <div>
             <img
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-            className={
-              isMatch
-              ? "match-image is-match"
-              : "match-image match-image__before-click"
-            }
-            src={profileImageUrl}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              className={
+                isMatch
+                  ? "match-image is-match"
+                  : "match-image match-image__before-click"
+              }
+              src={profileImageUrl}
             />
-            <div className="swipe-container">
-              <div className="left-swipe swipe" onClick={() => getNewMatch() }>
-                <p className="swipe-emoji">❌</p>
+            <div className='swipe-container'>
+              <div className='left-swipe swipe' onClick={() => getNewMatch()}>
+                <p className='swipe-emoji'>❌</p>
               </div>
-              <div className="right-swipe swipe" onClick={() => setIsMatch(true)}>
-                <p className="swipe-emoji">💚</p>
+              <div
+                className='right-swipe swipe'
+                onClick={() => setIsMatch(true)}
+              >
+                <p className='swipe-emoji'>💚</p>
               </div>
             </div>
           </div>
-          ) : null}
+        ) : null}
       </div>
       <div>
-          {profileInfo && profileImageUrl ? (
-            <div className='profile-info__container'>
-              <div className='profile-info'>
-                <p className='profile-info__first-name'>{profileInfo.first_name}</p>
-                <p className='profile-info__age'>{profileInfo.age}</p>
-              </div>
-              <p className="profile-info__location">🏠{profileInfo.location}</p>
-              <p className='profile-info__bio'>{profileInfo.bio}</p>
+        {profileInfo && profileImageUrl ? (
+          <div className='profile-info__container'>
+            <div className='profile-info'>
+              <p className='profile-info__first-name'>
+                {profileInfo.first_name}
+              </p>
+              <p className='profile-info__age'>{profileInfo.age}</p>
             </div>
-      ) : null}
+            <p className='profile-info__location'>🏠{profileInfo.city}</p>
+            <p className='profile-info__bio'>{profileInfo.bio}</p>
+          </div>
+        ) : null}
       </div>
       <button className='view-matches-button' onClick={handleSubmit}>
         View Matches
