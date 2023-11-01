@@ -1,3 +1,5 @@
+const { randomizeProfile } = require('../randomizeProfile')
+
 
 const { OpenAI } = require('openai');
 
@@ -6,8 +8,10 @@ const openai = new OpenAI({
 });
 
 const generateImage = async (req, res) => {
+  const promptDetails = randomizeProfile(req.body.promptDataSubmitted);
 
-  const { prompt } = req.body;
+
+  const prompt = `Dating app picture, photo realistic, hyper realistic, ${promptDetails.age} year old, ${promptDetails.race}, ${promptDetails.hairColor}, ${promptDetails.happyPlace || promptDetails.location}, attractive, alluring, ${promptDetails.lookingFor}, sigma 24 mm f/8 lens, smiling`
 
   try {
     const response = await openai.images.generate({

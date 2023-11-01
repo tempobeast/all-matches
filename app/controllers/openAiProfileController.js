@@ -1,3 +1,4 @@
+const { randomizeProfile } = require('../randomizeProfile')
 
 const { OpenAI } = require('openai');
 
@@ -9,19 +10,24 @@ const openai = new OpenAI({
 
 async function generateProfile(req, res) {
 
-   const { profilePrompt } = req.body;
+   const profilePrompt = randomizeProfile(req.body.promptDataSubmitted);
 
     try {
         const chatCompletion = await openai.chat.completions.create({
-          messages: [{ role: 'user', content: `return, in JSON form, a dating profile with keys first_name, age, location, and bio which will have a 20 word value using this prompt: ${profilePrompt}` }],
+          messages: [{ role: 'user', content: `return in JSON form - first_name: random name for a ${profilePrompt.lookingFor} and bio: dating app profile bio, 30 words or less, involving ${profilePrompt.happyPlace || profilePrompt.location}` }],
           model: 'gpt-3.5-turbo',
         });
 
         const response = chatCompletion
-
+        
+        const nonChatData = JSON.stringify({
+          "age": profilePrompt.age,
+          "city": profilePrompt.city
+})
         res.status(200).json({
             success: true,
-            data: response
+            chatData: response,
+            nonChatData: nonChatData
         })
         
     } catch (error) {
