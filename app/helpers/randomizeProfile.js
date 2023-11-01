@@ -1,5 +1,4 @@
-// const { getNearbyCities } = require("./nearbyCities");
-const { randomNumber, randomizeHair, randomizeLocation, randomizeRace, randomizeCity } = require("./helpers");
+const { randomizeHair, randomizeLocation, randomizeRace, randomizeCity } = require("./helpers");
 
 function randomizeProfile(profileData) {
     console.log(profileData)
