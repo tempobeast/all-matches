@@ -23,16 +23,14 @@ function Questionaire() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (promptData.ageLower > promptData.ageUpper) {
-      alert("Cannot complete request (Date range error)");
-      return;
+    function randomNumber(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
     }
 
     setPromptDataSubmitted({
       happyPlace: promptData.happyPlace,
       lookingFor: promptData.lookingFor,
-      ageLower: minValue,
-      ageUpper: maxValue,
+      age: randomNumber(minValue, maxValue),
       city: cityLocation,
     });
     navigate("/matches");
