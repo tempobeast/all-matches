@@ -290,6 +290,7 @@ img {
 @media (min-width: 40rem) {
   .match-image,
   .match-image__before-click{
-    width: 32rem;
+    width: 28rem;
+    height: 28rem;
   }
 }
