@@ -11,7 +11,7 @@ function randomizeProfile(profileData) {
         hairColor: randomizeHair(),
         location: randomizeLocation(),
         race: randomizeRace(),
-        city: randomizeCity(city).name
+        city: randomizeCity(city).name,
     }   
     // const profileAge = randomNumber(ageLower, ageUpper);
     //     const profileHairColor = randomizeHair()
