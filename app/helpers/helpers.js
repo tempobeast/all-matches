@@ -15,11 +15,16 @@ const { getNearbyCities } = require('./nearbyCities');
         "in a forest",
         "on a sailboat",
         "at a party",
-        "on a train",
         "backpacking",
-        "visiting a world monument"
+        "visiting a world monument",
+        "reading",
+        "at the gym",
+        "at the theatre",
+        "at a crouded bar",
+        "in my car"
       ];
       
+      //these are too generic. Not sure if they are appropriate. 
        const race = ["black", "caucasian", "latinx", "asian"];
     
        function randomNumber(max=arrayLength, min=0) {
