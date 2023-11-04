@@ -5,9 +5,9 @@ const PromptDataSubmittedContext = React.createContext();
 function PromptDataSubmittedProvider ({ children }) {
     const [ promptDataSubmitted, setPromptDataSubmitted ] = useState({
         happyPlace: "",
-        ageLower: 18,
-        ageUpper: 80,
-        lookingFor: ''
+        lookingFor: '',
+        age: '',
+        city: {},
     })
 
     return (
