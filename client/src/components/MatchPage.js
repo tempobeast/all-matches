@@ -39,16 +39,7 @@ function MatchPage() {
     }
   }
 
-  function getNewMatch() {
-    generateImageRequest();
-    generateProfile();
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    getNewMatch();
-  }
-
+  
   async function generateProfile() {
     try {
       const response = await fetch("/openai/generateprofile", {
@@ -64,12 +55,12 @@ function MatchPage() {
       if (!response.ok) {
         throw new Error("The profile cannot be generated");
       }
-
+      
       const data = await response.json();
-
+      
       const chatData = JSON.parse(data.chatData.choices[0].message.content);
       const nonChatData = JSON.parse(data.nonChatData);
-
+      
       setProfileInfo({
         ...chatData,
         ...nonChatData,
@@ -78,11 +69,11 @@ function MatchPage() {
       console.log(error);
     }
   }
-
+  
   async function generateImageRequest() {
     setIsMatch(false);
     setIsLoading(true);
-
+    
     try {
       const response = await fetch("/openai/generateimage", {
         method: "POST",
@@ -93,20 +84,29 @@ function MatchPage() {
           promptDataSubmitted,
         }),
       });
-
+      
       if (!response.ok) {
         throw new Error("The image cannot be generated");
       }
-
+      
       const data = await response.json();
-
+      
       setProfileImageUrl(data.data);
     } catch (error) {
       console.log(error);
     }
     setIsLoading(false);
   }
+  
+  function getNewMatch() {
+    generateImageRequest();
+    generateProfile();
+  }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    getNewMatch();
+  }
   return (
     <div className='match-page content'>
       {isLoading ? (
