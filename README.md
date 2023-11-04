@@ -1,6 +1,9 @@
 # All Matches
 All Matches is a fake dating app with AI generated photos of matches based on prompts set by the user. No matter how the photos hit or miss, the beauty of the app is that they are ALL MATCHES. Its intent is to play on the psychology of dating apps, the dopamine hit of a match and the overall distaste of users with mainstream (real) dating apps with real people on the other end. The app is being developed with a React front end and an Express backend that makes calls to OpenAI's Dall-E 2 and chat GPT APIs. 
 
+# Libraries and other guidance
+This app uses the node package 'country-state-city' to get State and City data from a user and return randomized city within a .35 degree radius. 
+
 ## User Features
 
 Select your preferred gender, age, activity and your location.
