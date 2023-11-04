@@ -45,6 +45,7 @@ function Location({ setUserCity }) {
         name='state'
         className='state-select'
         defaultValue={"Select State:"}
+        required
       >
         <option value='Select State:' disabled>
           Select State:
@@ -56,6 +57,7 @@ function Location({ setUserCity }) {
           onChange={handleCityChange}
           name='city'
           defaultValue={"Select City:"}
+          required
         >
           <option defaultValue='Select City:' disabled>
             Select City:
