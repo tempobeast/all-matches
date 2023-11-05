@@ -21,7 +21,8 @@ const { getNearbyCities } = require('./nearbyCities');
         "at the gym",
         "at the theatre",
         "at a crouded bar",
-        "in my car"
+        "on the golf course",
+        "hanging out with my bird"
       ];
       
       //these are too generic. Not sure if they are appropriate. 
