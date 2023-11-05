@@ -288,6 +288,12 @@ img {
 }
 
 @media (min-width: 40rem) {
+
+  .content {
+    margin: auto;
+    width: 572px;
+  }
+
   .match-image,
   .match-image__before-click{
     width: 28rem;
