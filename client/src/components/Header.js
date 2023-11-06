@@ -9,6 +9,7 @@ function Header() {
 
   return (
     <div className="header">
+      <h1 className="title"><strong>all</strong><em>matches</em></h1>
         <img className="header__flame" src="/all_matches_logo.png" onClick={() => navigate("/")}/>
     </div>
   );
