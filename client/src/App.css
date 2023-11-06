@@ -289,6 +289,23 @@ img {
 
 @media (min-width: 40rem) {
 
+  .App {
+    display: inline
+  }
+
+  .header{
+    height: 2rem;
+    margin: 2rem 0 0;
+  }
+
+  .header__flame {
+    position: absolute
+  }
+  
+  .title{
+    margin: 0;
+  }
+
   .content {
     margin: auto;
     width: 572px;
@@ -298,5 +315,13 @@ img {
   .match-image__before-click{
     width: 28rem;
     height: 28rem;
+  }
+
+  .match-image__container{
+    align-items: center;
+    justify-content: center;
+    height: 580px;
+    width: 580px;
+    margin: 0;
   }
 }
