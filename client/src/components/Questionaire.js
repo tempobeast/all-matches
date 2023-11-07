@@ -11,7 +11,7 @@ function Questionaire() {
   const [ userCity, setUserCity] = useState({});
   const [promptData, setPromptData] = useState({
     happyPlace: "",
-    lookingFor: "women",
+    lookingFor: "",
   });
   const [minValue, setMinValue] = useState(25);
   const [maxValue, setMaxValue] = useState(35);
@@ -22,7 +22,10 @@ function Questionaire() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    
+    if(!promptData.lookingFor || !userCity.name) {
+      alert('missing required fields')
+    } else {
     function randomNumber(min, max) {
       return Math.floor(Math.random() * (max - min) + min);
     }
@@ -35,6 +38,7 @@ function Questionaire() {
     });
     navigate("/matches");
   }
+  }
 
   function handleChange(e) {
     setPromptData({
@@ -43,7 +47,7 @@ function Questionaire() {
     });
   }
 
-
+console.log(userCity.name)
   return (
     <div className='content'>
       <h2>About You</h2>
