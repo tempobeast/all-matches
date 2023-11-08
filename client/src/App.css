@@ -53,6 +53,16 @@ img {
   height: 300px;
 }
 
+.header{
+  justify-content: space-be;
+  height: 0;
+}
+
+.title{
+  margin-bottom: 0;
+  
+}
+
 .dating-preference-form {
   background: linear-gradient(rgba(243, 63, 63, .95), rgba(243, 63, 63, .7));
   width: 90%;
