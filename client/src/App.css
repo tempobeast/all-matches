@@ -323,8 +323,8 @@ img {
 
   .match-image,
   .match-image__before-click{
-    width: 28rem;
-    height: 28rem;
+    width: 24rem;
+    height: 24rem;
   }
 
   .match-image__container{
