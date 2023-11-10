@@ -47,7 +47,6 @@ function Questionaire() {
     });
   }
 
-console.log(userCity.name)
   return (
     <div className='content'>
       <h2>About You</h2>
